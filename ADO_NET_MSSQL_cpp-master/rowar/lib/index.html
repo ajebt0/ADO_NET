@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ACADEMY TOP</title>
+    <link rel="stylesheet" href="css/table" />
+</head>
+<body>
+    <button onclick="LoadAllSdudents()">Students</button>
+    <button onclick="LoadAllGroups()">Groups</button>
+    <table id="studentsTable" style="display: none">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Возраст</th>
+            </tr>
+        </thead>
+        <tbody id="bodyTable"></tbody>
+    </table>
+    <script>
+        async function LoadAllSdudents() {
+            const table = document.getElementById("studentsTable");
+            let tbody = document.getElementById("bodyTable");
+            const res = await fetch("/students/all");
+            students = await res.json();
+            tbody.innerHTML = '';
+
+            for (s in students) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                         <td>${s.studentId}</td>
+                         <td>${s.firstName}</td>
+                         <td>${s.lastName}</td>
+                         <td>${s.age}</td>
+                    `;
+                tbody.appendChild(tr);
+            }
+            table.innerHTML = body;
+        }
+    </script>
+</body>
+</html>
